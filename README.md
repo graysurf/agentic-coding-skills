@@ -36,3 +36,10 @@ agentic-coding-skills tracks Agentic Coding Tool setup to keep workflows consist
 
 - This project expects the `$CLI_TOOLS` environment variable to be set to a local directory containing shared CLI tooling (shell scripts and helpers) used by prompts and skills in this repo.
 - [`git-scope`](https://github.com/graysurf/zsh-kit/tree/main/docs/git-scope.md) and [`git-commit-message`](https://github.com/graysurf/zsh-kit/tree/main/scripts/git/git-tools.zsh#L739) commands are used in commit and pull request workflows. For more details, see [zsh-kit](https://github.com/graysurf/zsh-kit).
+
+## 🪪 License
+
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+This repository is dedicated to the public domain under the [CC0 1.0 Universal license](https://creativecommons.org/publicdomain/zero/1.0/).
+You are free to copy, modify, distribute, and use any part of this work, even for commercial purposes, without asking for permission or giving credit.
