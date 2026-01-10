@@ -1,0 +1,27 @@
+# OS metadata
+.DS_Store
+
+# Agent/tool configuration
+config.toml
+
+# Auth/session/history
+auth.json
+history.jsonl
+sessions/
+version.json
+
+# Env/virtualenv
+.venv/
+skills/_projects/**/*.env
+skills/_projects/**/*.env.*
+
+# Logs/output
+*.log
+log/
+out/
+
+# Generated system skills
+skills/.system/
+
+# Local per-repo API testing setup (dev-only)
+/setup/

@@ -1,0 +1,166 @@
+name: API test runner
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  smoke-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Bootstrap public suite (gitignored setup/)
+        run: |
+          rm -rf setup
+          cp -R skills/api-test-runner/template/setup ./setup
+
+      - name: Run suite
+        env:
+          AGENT_KIT_HOME: ${{ github.workspace }}
+        run: |
+          skills/api-test-runner/scripts/api-test.sh \
+            --suite smoke-demo \
+            --out out/api-test-runner/results.json \
+            --junit out/api-test-runner/junit.xml
+
+      - name: Summarize results
+        if: always()
+        run: |
+          skills/api-test-runner/scripts/api-test-summary.sh \
+            --in out/api-test-runner/results.json \
+            --out out/api-test-runner/summary.md \
+            --slow 5
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-runner
+          path: |
+            out/api-test-runner/results.json
+            out/api-test-runner/junit.xml
+            out/api-test-runner/summary.md
+
+  public-auth-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Bootstrap public suite (gitignored setup/)
+        run: |
+          rm -rf setup
+          cp -R skills/api-test-runner/template/setup ./setup
+
+      - name: Run suite (expected GraphQL failure demo)
+        continue-on-error: true
+        env:
+          AGENT_KIT_HOME: ${{ github.workspace }}
+        run: |
+          skills/api-test-runner/scripts/api-test.sh \
+            --suite public-auth-demo \
+            --out out/api-test-runner/public-auth-demo.results.json \
+            --junit out/api-test-runner/public-auth-demo.junit.xml
+
+      - name: Summarize results
+        if: always()
+        run: |
+          skills/api-test-runner/scripts/api-test-summary.sh \
+            --in out/api-test-runner/public-auth-demo.results.json \
+            --out out/api-test-runner/public-auth-demo.summary.md \
+            --slow 5
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-runner-public-auth-demo
+          path: |
+            out/api-test-runner/public-auth-demo.results.json
+            out/api-test-runner/public-auth-demo.junit.xml
+            out/api-test-runner/public-auth-demo.summary.md
+
+  auth-secrets-demo:
+    # Requires a repo secret named API_TEST_AUTH_JSON (single JSON string).
+    # Note: `jobs.<job_id>.if` cannot use `secrets` context, so we gate steps via env instead.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      API_TEST_AUTH_JSON: ${{ secrets.API_TEST_AUTH_JSON }}
+
+    steps:
+      - name: Skip (missing API_TEST_AUTH_JSON)
+        if: ${{ env.API_TEST_AUTH_JSON == '' }}
+        run: |
+          if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
+            {
+              echo "## API test summary: auth-secrets-demo"
+              echo ""
+              echo "_Skipped: missing repo secret `API_TEST_AUTH_JSON`._"
+              echo ""
+            } >>"$GITHUB_STEP_SUMMARY"
+          fi
+          echo "Skipping auth-secrets-demo: missing repo secret API_TEST_AUTH_JSON."
+
+      - name: Checkout
+        if: ${{ env.API_TEST_AUTH_JSON != '' }}
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        if: ${{ env.API_TEST_AUTH_JSON != '' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Bootstrap public suite (gitignored setup/)
+        if: ${{ env.API_TEST_AUTH_JSON != '' }}
+        run: |
+          rm -rf setup
+          cp -R skills/api-test-runner/template/setup ./setup
+
+      - name: Run suite (auth via GitHub Secrets)
+        if: ${{ env.API_TEST_AUTH_JSON != '' }}
+        env:
+          AGENT_KIT_HOME: ${{ github.workspace }}
+        run: |
+          skills/api-test-runner/scripts/api-test.sh \
+            --suite auth-secrets-demo \
+            --out out/api-test-runner/auth-secrets-demo.results.json \
+            --junit out/api-test-runner/auth-secrets-demo.junit.xml
+
+      - name: Summarize results
+        if: ${{ always() && env.API_TEST_AUTH_JSON != '' }}
+        run: |
+          skills/api-test-runner/scripts/api-test-summary.sh \
+            --in out/api-test-runner/auth-secrets-demo.results.json \
+            --out out/api-test-runner/auth-secrets-demo.summary.md \
+            --slow 5
+
+      - name: Upload artifacts
+        if: ${{ always() && env.API_TEST_AUTH_JSON != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-runner-auth-secrets-demo
+          path: |
+            out/api-test-runner/auth-secrets-demo.results.json
+            out/api-test-runner/auth-secrets-demo.junit.xml
+            out/api-test-runner/auth-secrets-demo.summary.md
