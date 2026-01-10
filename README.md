@@ -47,8 +47,6 @@ export PROJECT_PATH="$PWD"
 
 ```text
 .
-├── .github/   # CI workflows
-├── README.md
 ├── docs/      # output templates
 ├── prompts/   # prompt templates
 ├── scripts/   # helpers + command wrappers
@@ -59,27 +57,27 @@ export PROJECT_PATH="$PWD"
 
 | Prompt | Description | Usage |
 | --- | --- | --- |
-| actionable-advice | Answer a question with clarifying questions, multiple options, and a single recommendation | `/prompts:actionable-advice <question>` |
-| actionable-knowledge | Answer a learning/knowledge question with multiple explanation paths and a single recommended path | `/prompts:actionable-knowledge <question>` |
+| [actionable-advice](prompts/actionable-advice.md) | Answer a question with clarifying questions, multiple options, and a single recommendation | `/prompts:actionable-advice <question>` |
+| [actionable-knowledge](prompts/actionable-knowledge.md) | Answer a learning/knowledge question with multiple explanation paths and a single recommended path | `/prompts:actionable-knowledge <question>` |
 
 ## 🛠️ Skills
 
 | Skill | Description |
 | --- | --- |
-| chrome-devtools-site-search | Browse a site via the chrome-devtools MCP server, summarize results, and open matching pages |
-| commit-message | Generate Semantic Commit messages from staged changes |
-| create-feature-pr | Create feature branches and open a PR with a standard template |
-| close-feature-pr | Merge and close PRs after a quick PR hygiene review; delete the feature branch |
-| create-progress-pr | Create a progress planning file under docs/progress/ and open a PR (no implementation yet) |
-| close-progress-pr | Finalize/archive a progress file for a PR, then merge and patch Progress links to base branch |
-| find-and-fix-bugs | Find, triage, and fix bugs; open a PR with a standard template |
-| open-changed-files-review | Open files edited by the agent in VSCode after making changes (silent no-op when unavailable) |
-| desktop-notify | Send desktop notifications via terminal-notifier (macOS) or notify-send (Linux) |
-| api-test-runner | Run CI-friendly API test suites (REST + GraphQL) from a single manifest; emits JSON (+ optional JUnit) results |
-| graphql-api-testing | Test GraphQL APIs with repeatable, file-based operations/variables and generate API test reports |
-| rest-api-testing | Test REST APIs with repeatable, file-based requests and generate API test reports |
-| release-workflow | Execute project release workflows by following RELEASE_GUIDE.md |
+| [chrome-devtools-site-search](skills/chrome-devtools-site-search/SKILL.md) | Browse a site via the chrome-devtools MCP server, summarize results, and open matching pages |
+| [commit-message](skills/commit-message/SKILL.md) | Generate Semantic Commit messages from staged changes |
+| [create-feature-pr](skills/create-feature-pr/SKILL.md) | Create feature branches and open a PR with a standard template |
+| [close-feature-pr](skills/close-feature-pr/SKILL.md) | Merge and close PRs after a quick PR hygiene review; delete the feature branch |
+| [create-progress-pr](skills/create-progress-pr/SKILL.md) | Create a progress planning file under docs/progress/ and open a PR (no implementation yet) |
+| [close-progress-pr](skills/close-progress-pr/SKILL.md) | Finalize/archive a progress file for a PR, then merge and patch Progress links to base branch |
+| [find-and-fix-bugs](skills/find-and-fix-bugs/SKILL.md) | Find, triage, and fix bugs; open a PR with a standard template |
+| [open-changed-files-review](skills/open-changed-files-review/SKILL.md) | Open files edited by the agent in VSCode after making changes (silent no-op when unavailable) |
+| [desktop-notify](skills/desktop-notify/SKILL.md) | Send desktop notifications via terminal-notifier (macOS) or notify-send (Linux) |
+| [api-test-runner](skills/api-test-runner/SKILL.md) | Run CI-friendly API test suites (REST + GraphQL) from a single manifest; emits JSON (+ optional JUnit) results |
+| [graphql-api-testing](skills/graphql-api-testing/SKILL.md) | Test GraphQL APIs with repeatable, file-based operations/variables and generate API test reports |
+| [rest-api-testing](skills/rest-api-testing/SKILL.md) | Test REST APIs with repeatable, file-based requests and generate API test reports |
+| [release-workflow](skills/release-workflow/SKILL.md) | Execute project release workflows by following RELEASE_GUIDE.md |
 
 ## License
 
-MIT © graysurf. See `LICENSE`.
+MIT © graysurf. See [LICENSE](LICENSE).
