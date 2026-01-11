@@ -10,6 +10,7 @@ description: Generate Git commit messages in Semantic Commit format. Use when as
 Prereqs:
 
 - Run inside a git work tree.
+- `git` available on `PATH`.
 - `zsh` available on `PATH` (scripts are `zsh -f`).
 - `$AGENT_KIT_HOME/scripts/kit-tools.sh` exists (provides `git-tools` and `git-scope`).
 
