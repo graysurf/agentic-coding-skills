@@ -65,7 +65,7 @@ export PROJECT_PATH="$PWD"
 | Skill | Description |
 | --- | --- |
 | [chrome-devtools-site-search](skills/chrome-devtools-site-search/SKILL.md) | Browse a site via the chrome-devtools MCP server, summarize results, and open matching pages |
-| [commit-message](skills/commit-message/SKILL.md) | Generate Semantic Commit messages from staged changes |
+| [semantic-commit](skills/semantic-commit/SKILL.md) | Commit staged changes using Semantic Commit format |
 | [create-feature-pr](skills/create-feature-pr/SKILL.md) | Create feature branches and open a PR with a standard template |
 | [close-feature-pr](skills/close-feature-pr/SKILL.md) | Merge and close PRs after a quick PR hygiene review; delete the feature branch |
 | [create-progress-pr](skills/create-progress-pr/SKILL.md) | Create a progress planning file under docs/progress/ and open a PR (no implementation yet) |
