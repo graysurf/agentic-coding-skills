@@ -78,6 +78,8 @@ export PROJECT_PATH="$PWD"
 | [rest-api-testing](skills/rest-api-testing/SKILL.md) | Test REST APIs with repeatable, file-based requests and generate API test reports |
 | [release-workflow](skills/release-workflow/SKILL.md) | Execute project release workflows by following RELEASE_GUIDE.md |
 
-## License
+## 🪪 License
 
-MIT © graysurf. See [LICENSE](LICENSE).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
